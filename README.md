@@ -44,3 +44,35 @@ Air pollution monitoring dataset containing:
 ## Key Learning
 
 I understood how Pandas helps in cleaning, analyzing, summarizing, and visualizing real-world datasets efficiently.
+
+
+
+## Week 2 Progress — Fashion-MNIST CNN Classifier
+
+Built and trained a Convolutional Neural Network (CNN) using TensorFlow and Keras on the Fashion-MNIST dataset.
+
+### Project Highlights
+- Loaded and preprocessed image data using TensorFlow
+- Visualized clothing images from the dataset
+- Built a CNN architecture with Conv2D, MaxPooling, Flatten, and Dense layers
+- Trained the model for 10 epochs using the Adam optimizer
+- Evaluated model performance on the test dataset
+- Plotted training/validation accuracy and loss graphs
+- Generated a confusion matrix for prediction analysis
+
+### Model Performance
+- Fashion-MNIST classifier reached 91.2% test accuracy.
+- Training accuracy was higher than validation accuracy, indicating initial overfitting.
+- The model performed well on visually distinct classes such as bags, sneakers, and ankle boots.
+- Classes like shirts, pullovers, and T-shirts were more difficult because of similar visual patterns.
+
+### Technologies Used
+- Python
+- TensorFlow
+- Keras
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+
+This project was my first deep learning image classification model and my first machine learning performance result published on GitHub.
