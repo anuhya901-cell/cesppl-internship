@@ -76,3 +76,8 @@ Built and trained a Convolutional Neural Network (CNN) using TensorFlow and Kera
 - Scikit-learn
 
 This project was my first deep learning image classification model and my first machine learning performance result published on GitHub.
+                                                                                                                             Week 2 Results
+
+MLP test accuracy: 85.4%
+CNN test accuracy: 89.2%
+CNN parameter count: 34,826
