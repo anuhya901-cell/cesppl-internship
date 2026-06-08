@@ -81,3 +81,31 @@ This project was my first deep learning image classification model and my first 
 MLP test accuracy: 85.4%
 CNN test accuracy: 89.2%
 CNN parameter count: 34,826
+
+
+## Week 3: CIFAR-10 Baseline CNN
+
+Built and trained a Convolutional Neural Network (CNN) from scratch on the CIFAR-10 dataset using TensorFlow/Keras. The model consists of four convolutional layers, two max-pooling layers, and two dense layers for image classification across 10 categories.
+
+### Key Learning Outcomes
+
+* Loaded and explored the CIFAR-10 dataset.
+* Visualized random training images and their labels.
+* Built a CNN architecture for image classification.
+* Trained the model using the Adam optimizer.
+* Monitored training and validation accuracy/loss curves.
+* Observed overfitting by comparing training and validation performance.
+* Evaluated the model on the test dataset.
+
+### Results
+
+* Test Accuracy: 70.08%
+* Visible overfitting from approximately epoch Y onward.
+
+### Technologies Used
+
+* Python
+* TensorFlow / Keras
+* NumPy
+* Matplotlib
+* Google Colab (GPU)
