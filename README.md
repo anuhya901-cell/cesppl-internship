@@ -105,6 +105,16 @@ Built and trained a Convolutional Neural Network (CNN) from scratch on the CIFAR
 ### Technologies Used
 
 * Python
+
+* ## Week 3: CNN Overfitting and Data Augmentation
+
+This week I trained a CNN on the CIFAR-10 dataset and observed clear signs of overfitting. I then applied data augmentation techniques such as horizontal flipping and random image transformations to improve generalization. The augmented model achieved a validation accuracy of 79.4% compared to 71.5% for the baseline model while using the same network architecture.
+
+Baseline Validation Accuracy: 71.5%
+Augmented Validation Accuracy: 79.4%
+
+Baseline Test Accuracy: 70.8%
+Augmented Test Accuracy: 78.9%
 * TensorFlow / Keras
 * NumPy
 * Matplotlib
