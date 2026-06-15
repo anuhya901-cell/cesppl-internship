@@ -131,3 +131,53 @@ Achieved 98.21% validation accuracy.
 Saved trained model weights for future fine-tuning.
 
 Result: Cats vs Dogs feature extraction: 98.21% validation accuracy in ten epochs.
+
+
+## 🐱🐶 Cats vs Dogs Classification — Fine-Tuning Phase
+
+This project extends the feature extraction model by applying *fine-tuning on MobileNetV2* to further improve performance on the Cats vs Dogs dataset.
+
+---
+
+## 🔧 Approach
+
+- Loaded pretrained feature extraction model (cats_dogs_feature_extraction.keras)
+- Used MobileNetV2 as base model
+- Unfroze the last ~30 layers of the base model
+- Applied a very small learning rate (*1e-5*) to preserve pretrained weights
+- Continued training on the same dataset for additional epochs
+- Evaluated performance after fine-tuning
+
+---
+
+## 📊 Results
+
+| Phase | Validation Accuracy | Notes |
+|------|---------------------|------|
+| Feature Extraction | 98.21% | Trained only classification head |
+| Fine-Tuning | 98.3% | Improved generalization by unfreezing top layers |
+
+- Loss decreased further during fine-tuning
+- Reduced overfitting compared to feature extraction phase
+- Improved model stability and accuracy
+
+---
+
+## 🧠 Key Learning
+
+Fine-tuning allows pretrained CNN models to adjust high-level features for a specific dataset. Using a very small learning rate (1e-5) is critical to avoid destroying learned ImageNet features.
+
+---
+
+## 💾 Saved Models
+
+- cats_dogs_feature_extraction.keras
+- cats_dogs_finetuned.keras
+
+---
+
+## ⚙️ Tools Used
+
+- TensorFlow / Keras
+- MobileNetV2 (Transfer Learning)
+- TensorFlow Datasets (Cats vs Dogs)
