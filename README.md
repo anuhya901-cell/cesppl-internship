@@ -119,3 +119,15 @@ Augmented Test Accuracy: 78.9%
 * NumPy
 * Matplotlib
 * Google Colab (GPU)
+
+Week 4: Transfer Learning with MobileNetV2
+Cats vs Dogs Feature Extraction
+Loaded the Cats vs Dogs dataset from TensorFlow Datasets.
+Applied image resizing and preprocessing.
+Used MobileNetV2 pretrained on ImageNet as a frozen feature extractor.
+Added a custom classification head with GlobalAveragePooling2D and Dropout.
+Trained for 10 epochs using Transfer Learning.
+Achieved 98.21% validation accuracy.
+Saved trained model weights for future fine-tuning.
+
+Result: Cats vs Dogs feature extraction: 98.21% validation accuracy in ten epochs.
