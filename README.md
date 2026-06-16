@@ -1,3 +1,10 @@
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-FF6F00?logo=tensorflow)
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+
+![License](https://img.shields.io/badge/License-MIT-green) 
+
+
 CESPPL Internship — Image Classification for Solid Waste Operations
 
 This repository contains internship work related to image classification for solid waste operations using Python, machine learning, and computer vision tools.
@@ -181,3 +188,18 @@ Fine-tuning allows pretrained CNN models to adjust high-level features for a spe
 - TensorFlow / Keras
 - MobileNetV2 (Transfer Learning)
 - TensorFlow Datasets (Cats vs Dogs)
+
+- ## Week 4 - Transfer Learning Comparison
+
+This week I learned transfer learning using pretrained convolutional neural networks. Instead of training a model from scratch, I used pretrained ImageNet weights and adapted the models to the Cats vs Dogs classification task. I compared three different backbone architectures: MobileNetV2, ResNet50V2, and EfficientNetB0. For each model, I performed feature extraction followed by fine-tuning and evaluated validation accuracy, training speed, and model size.
+
+| Backbone       | Parameters | Feature Extraction Accuracy | Fine-Tuning Accuracy | Time/Epoch | Weight Size |
+| -------------- | ---------- | --------------------------- | -------------------- | ---------- | ----------- |
+| MobileNetV2    | 2,257,985        | 98.36%                         | 98.2%                 | 30 sec        | 14 MB         |
+| ResNet50V2     | 2,268,865        | 92.0%                         | 93.6%                  | 80 sec         | 98 MB         |
+| EfficientNetB0 | 5,834,908         | 96.3%                          | 98.2%                   | 36 sec         | 22MB          |
+
+### Takeaway
+
+EfficientNetB0 achieved the best balance between accuracy and computational cost. MobileNetV2 was the fastest and smallest model, while ResNet50V2 provided a strong baseline but required more computation. This experiment demonstrated that model selection is an engineering trade-off rather than simply choosing the highest accuracy.
+
