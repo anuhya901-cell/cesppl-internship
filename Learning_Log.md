@@ -9,3 +9,18 @@ The most interesting thing I learned was data augmentation. Before this week, I 
 One thing that still confuses me is determining exactly which augmentation techniques are most beneficial for a specific dataset. I understand that horizontal flipping works for CIFAR-10, but I am not yet fully confident about when rotations, zooming, or other transformations should be used.
 
 Overall, this week helped me understand one of the most important challenges in deep learning: balancing model capacity with generalization.
+
+
+Chosen Backbone: EfficientNetB0
+
+I selected EfficientNetB0 as the primary backbone for the remainder of the internship. It provided strong validation accuracy while maintaining a relatively small model size and reasonable training speed. This makes it a practical choice for experimentation on Colab's free GPU and future deployment projects.
+
+
+## Week 4 Reflection
+
+This week introduced transfer learning and fine-tuning. The most surprising observation was that fine-tuning improved validation accuracy even though only a small portion of the network weights were updated. I expected a larger gap between the three backbone architectures, but the results were relatively close.
+
+Another important lesson was the role of preprocessing functions. Each backbone required its own preprocess_input function, and using the wrong preprocessing could silently reduce model performance without producing any error message.
+
+I also experienced several environment issues involving TensorFlow, TensorFlow Datasets, and package version conflicts. Troubleshooting these problems helped me understand how machine learning environments and dependencies affect reproducibility.
+
