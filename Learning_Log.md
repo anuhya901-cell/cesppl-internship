@@ -24,3 +24,9 @@ Another important lesson was the role of preprocessing functions. Each backbone 
 
 I also experienced several environment issues involving TensorFlow, TensorFlow Datasets, and package version conflicts. Troubleshooting these problems helped me understand how machine learning environments and dependencies affect reproducibility.
 
+### Week 5 Learning Log
+
+Today I worked with the Flowers dataset and applied Andrej Karpathy's overfit-one-batch sanity check. I trained an EfficientNetB0 transfer learning model on two images and successfully reduced the loss from 1.3561 to 0.0035 while achieving 100% accuracy. This verified that the training pipeline was functioning correctly.
+
+After the sanity check passed, I trained the model on the full Flowers dataset and achieved 100% validation accuracy after two epochs. This exercise helped me understand how to debug machine learning pipelines before running full-scale training experiments.
+
