@@ -203,3 +203,18 @@ This week I learned transfer learning using pretrained convolutional neural netw
 
 EfficientNetB0 achieved the best balance between accuracy and computational cost. MobileNetV2 was the fastest and smallest model, while ResNet50V2 provided a strong baseline but required more computation. This experiment demonstrated that model selection is an engineering trade-off rather than simply choosing the highest accuracy.
 
+
+## Week 5: Flowers Dataset and Karpathy Sanity Check
+
+Built a flower classification model using EfficientNetB0 transfer learning on the TensorFlow Flowers dataset containing five classes: daisy, dandelion, roses, sunflowers, and tulips.
+
+Applied Andrej Karpathy's overfit-one-batch sanity check by training on only two images. The model successfully memorized the images, reducing the loss from 1.3561 to 0.0035 and achieving 100% accuracy. This verified that the data pipeline, model architecture, optimizer, and loss function were functioning correctly.
+
+After passing the sanity check, trained the model on the full Flowers dataset and achieved:
+
+- Training Accuracy: 100%
+- Validation Accuracy: 100%
+- Validation Loss: 0.0010
+
+Key Learning:
+The overfit-one-batch test is a powerful debugging technique that confirms whether a training pipeline is capable of fitting data before performing large-scale experiments.
