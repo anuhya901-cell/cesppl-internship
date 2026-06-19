@@ -218,3 +218,127 @@ After passing the sanity check, trained the model on the full Flowers dataset an
 
 Key Learning:
 The overfit-one-batch test is a powerful debugging technique that confirms whether a training pipeline is capable of fitting data before performing large-scale experiments.
+
+
+# 🌸 Flowers Image Classification using MobileNetV2
+
+## 📌 Project Overview
+
+This project implements a Flower Image Classification model using Transfer Learning with MobileNetV2. The model is trained on the TensorFlow Flowers dataset containing five flower categories.
+
+The pretrained MobileNetV2 base model is used as a frozen feature extractor, while custom classification layers are added on top for flower classification.
+
+---
+
+## 🎯 Objective
+
+* Perform feature extraction using MobileNetV2.
+* Apply data augmentation to improve generalization.
+* Use callbacks to optimize training.
+* Achieve validation accuracy above 88%.
+
+---
+
+## 📂 Dataset
+
+The TensorFlow Flowers dataset contains the following classes:
+
+* Daisy
+* Dandelion
+* Roses
+* Sunflowers
+* Tulips
+
+---
+
+## 🛠️ Technologies Used
+
+* Python
+* TensorFlow / Keras
+* MobileNetV2
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+
+---
+
+## 🔄 Data Augmentation
+
+The following augmentation techniques were applied:
+
+* RandomFlip
+* RandomRotation (0.15)
+* RandomZoom (0.15)
+* RandomContrast (0.1)
+* RandomTranslation (0.1, 0.1)
+
+---
+
+## 🧠 Model Architecture
+
+* MobileNetV2 (Pretrained on ImageNet)
+* Frozen Convolutional Base
+* GlobalAveragePooling2D
+* Dropout (0.3)
+* Dense Layer (5 classes, Softmax)
+
+---
+
+## ⚙️ Training Configuration
+
+* Optimizer: Adam (Learning Rate = 0.001)
+* Loss Function: Sparse Categorical Crossentropy
+* Metric: Accuracy
+* Callbacks:
+
+  * EarlyStopping
+  * ReduceLROnPlateau
+
+---
+
+## 📊 Results
+
+| Metric              | Value      |
+| ------------------- | ---------- |
+| Validation Accuracy | 89.51%     |
+| Best Epoch          | 26         |
+| Target Accuracy     | 88%        |
+| Status              | Achieved ✅ |
+
+---
+
+## 📈 Confusion Matrix Analysis
+
+* Dandelions achieved the highest classification accuracy.
+* Roses and Tulips showed minor confusion due to visual similarity.
+* Sunflowers were classified accurately with very few errors.
+* Most predictions were concentrated along the diagonal, indicating strong model performance.
+
+---
+
+## 🎓 Key Learnings
+
+* Transfer learning significantly reduces training time while maintaining strong performance.
+* Data augmentation improves model generalization on smaller datasets.
+* EarlyStopping prevents unnecessary training and reduces overfitting.
+* ReduceLROnPlateau helps the model converge more effectively.
+
+---
+
+## 💾 Model Output
+
+The trained model was saved in:
+
+```text
+flowers_feature_extraction.keras
+```
+
+---
+
+## 🚀 Future Work
+
+* Fine-tune the MobileNetV2 base model.
+* Experiment with different learning rates.
+* Compare performance with EfficientNet and ResNet architectures.
+* Deploy the model as a web application.
