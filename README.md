@@ -342,3 +342,16 @@ flowers_feature_extraction.keras
 * Experiment with different learning rates.
 * Compare performance with EfficientNet and ResNet architectures.
 * Deploy the model as a web application.
+
+## Week 5: Karpathy and Flowers
+
+This week focused on transfer learning, model evaluation, and practical neural network training techniques. I read Andrej Karpathy's essay "A Recipe for Training Neural Networks" and reviewed relevant sections of Géron's Hands-On Machine Learning.
+
+Using MobileNetV2 as a frozen feature extractor, I trained a flower classification model on the TensorFlow Flowers dataset containing five classes: Daisy, Dandelion, Roses, Sunflowers, and Tulips.
+
+The model achieved a validation accuracy of 89.51%, exceeding the target accuracy of 88%.
+
+Confusion matrix analysis showed that most errors occurred between visually similar flower categories, highlighting the importance of examining misclassified examples rather than relying solely on accuracy metrics.
+
+This project reinforced the value of data inspection, transfer learning, visualization, and systematic model debugging.
+
