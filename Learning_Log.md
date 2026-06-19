@@ -30,3 +30,44 @@ Today I worked with the Flowers dataset and applied Andrej Karpathy's overfit-on
 
 After the sanity check passed, I trained the model on the full Flowers dataset and achieved 100% validation accuracy after two epochs. This exercise helped me understand how to debug machine learning pipelines before running full-scale training experiments.
 
+
+# LEARNING LOG
+
+## Week 5 - Karpathy and Flowers
+
+### What I Read
+
+* Andrej Karpathy: A Recipe for Training Neural Networks
+* Relevant sections from Hands-On Machine Learning by Aurélien Géron
+
+### Key Ideas Learned
+
+1. Become one with the data.
+
+   * Always inspect and understand the dataset before training.
+
+2. Start with a simple baseline.
+
+   * Build a working model first, then improve it incrementally.
+
+3. Overfit a small batch first.
+
+   * Verify that the training pipeline works correctly before large-scale training.
+
+4. Visualize everything.
+
+   * Training curves and confusion matrices help identify problems.
+
+5. Inspect misclassified examples.
+
+   * Incorrect predictions often reveal the true weaknesses of a model.
+
+### Application to Flowers Project
+
+* Used MobileNetV2 for transfer learning.
+* Achieved 89.51% validation accuracy.
+* Generated and analyzed a confusion matrix.
+* Observed confusion between visually similar flower classes.
+* Learned the importance of evaluating model errors rather than relying only on accuracy.
+
+
