@@ -355,3 +355,42 @@ Confusion matrix analysis showed that most errors occurred between visually simi
 
 This project reinforced the value of data inspection, transfer learning, visualization, and systematic model debugging.
 
+
+# Week 6: TrashNet Exploratory Data Analysis (EDA)
+
+## Overview
+
+This week focused on performing Exploratory Data Analysis (EDA) on the TrashNet dataset to understand its structure and quality before training an image classification model.
+
+## Tasks Completed
+
+* Downloaded and organized the TrashNet dataset into the project directory.
+* Counted the number of images available in each waste category.
+* Visualized random sample images from all six classes.
+* Analyzed image dimensions and file size distributions.
+* Checked the dataset for corrupt images using `PIL.Image.verify()`.
+* Created a reproducible stratified train-validation-test split (70%/15%/15%).
+* Saved the train, validation, and test file lists as CSV files.
+* Documented observations about class imbalance, image variability, and similarities between different waste categories.
+
+## Dataset Classes
+
+* Cardboard
+* Glass
+* Metal
+* Paper
+* Plastic
+* Trash
+
+## Files Added
+
+* `notebooks/w6_trashnet_eda.ipynb`
+* `notebooks/train.csv`
+* `notebooks/val.csv`
+* `notebooks/test.csv`
+
+## Outcome
+
+Successfully completed the exploratory data analysis of the TrashNet dataset, providing a strong foundation for developing and evaluating waste image classification models in the upcoming weeks.
+
+
