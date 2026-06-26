@@ -392,5 +392,3 @@ This week focused on performing Exploratory Data Analysis (EDA) on the TrashNet 
 ## Outcome
 
 Successfully completed the exploratory data analysis of the TrashNet dataset, providing a strong foundation for developing and evaluating waste image classification models in the upcoming weeks.
-
-
