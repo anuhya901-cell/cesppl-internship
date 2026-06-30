@@ -392,3 +392,24 @@ This week focused on performing Exploratory Data Analysis (EDA) on the TrashNet 
 ## Outcome
 
 Successfully completed the exploratory data analysis of the TrashNet dataset, providing a strong foundation for developing and evaluating waste image classification models in the upcoming weeks.
+
+
+## Week 6 — TrashNet Feature Extraction (EfficientNetB0)
+
+- Built a transfer learning model using EfficientNetB0 on TrashNet dataset  
+- Dataset contains 6 classes: cardboard, glass, metal, paper, plastic, trash  
+- Applied data augmentation and EfficientNet preprocessing  
+- Trained with frozen base model and dense classification head  
+
+### 📊 Results
+- Validation Accuracy: **88.32%**
+- Validation Loss: **0.3360**
+
+### 🧠 Key Insight
+Per-class precision and recall provide more meaningful evaluation than overall accuracy, especially in imbalanced datasets. While overall accuracy is high, smaller classes like "trash" show lower recall due to fewer training samples.
+
+### 📌 Important Observation
+- Strong performance on: paper, cardboard, glass, metal  
+- Weak performance on: trash (minority class issue)
+
+This highlights the importance of class imbalance handling in real-world machine learning systems.
