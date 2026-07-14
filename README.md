@@ -570,20 +570,33 @@ The Trash class recall improved from **0.74** to **0.82**, demonstrating better 
 
 Week 7 strengthened my understanding of model optimization and evaluation beyond overall accuracy. By comparing different backbone architectures, analysing prediction errors, and addressing class imbalance using class weights, I developed a more systematic approach to improving deep learning models. EfficientNetB0 remained the best-performing architecture with a feature extraction validation accuracy of **88.12%**, making it the final model selected for subsequent experiments.
 
-## Week 8 – Hyperparameter Sweep
+# Week 8 – Hyperparameter Sweep and Iteration Playbook
 
-Designed and executed a six-run fractional hyperparameter sweep using the TrashNet dataset and the EfficientNetB0 transfer learning model.
+Week 8 completed the TrashNet rehearsal phase through systematic hyperparameter tuning and the creation of a reusable model-iteration playbook.
 
-### Hyperparameters Evaluated
+A six-run fractional sweep evaluated three major hyperparameters:
 
-- Image Size (160, 224, 260)
-- Dropout Rate (0.2, 0.3, 0.5)
-- Data Augmentation (Low, Medium, High)
+- Image size: 160, 224, 260
+- Dropout: 0.2, 0.3, 0.5
+- Augmentation strength: Low, Medium, High
 
-A structured experimental workflow was followed while keeping the remaining training pipeline unchanged. The results of all experiments were recorded in **experiments.csv**, enabling systematic comparison of different configurations and helping identify effective parameter settings for future model development.
+The best experiment achieved **89.31% validation accuracy** using:
+
+- Image size: **260 × 260**
+- Dropout: **0.5**
+- Augmentation: **Medium**
+- Training time: **4.86 minutes**
+
+A cosine learning-rate schedule was also tested against the constant-learning-rate baseline.
+
+- Constant-LR baseline: **89.31%**
+- Cosine-decay result: **XX.XX%**
+
+The complete sweep results, analysis notebook, and cosine-decay experiment are available in the `week8_hyperparameter_sweep/` folder.
 
 ### Iteration Playbook
 
 Created a reusable troubleshooting and model-iteration guide for future CESPPL experiments.
 
 [View the Model Iteration Playbook](./ITERATION_PLAYBOOK.md)
+From next week onward, the techniques developed during the rehearsal phase will be applied to the real CESPPL operational dataset.
