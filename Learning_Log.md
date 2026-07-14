@@ -92,4 +92,48 @@ Another key takeaway was that higher complexity does not always produce better p
 
 Overall, this week improved my understanding of experimental design, hyperparameter tuning, and systematic model evaluation. These are essential skills for developing reliable deep learning models.
 
+# End of Rehearsal
+
+The first eight weeks of this internship were a rehearsal for working with the real CESPPL operational dataset. At the start, I could train basic models, but I did not yet have a reliable process for diagnosing failures, comparing experiments, or understanding why a model made mistakes.
+
+The TrashNet work changed that. I learned that model development is not only about calling `model.fit()` and checking accuracy. A complete workflow includes validating the dataset, checking labels, establishing a baseline, reading training curves, evaluating every class, studying errors, and recording experiments carefully.
+
+One major lesson was that more complicated techniques do not automatically improve results. Fine-tuning performed worse than feature extraction in some runs. DenseNet121 did not outperform EfficientNetB0 in my implementation. Class weighting slightly reduced overall accuracy but improved recall for the rare Trash class. The hyperparameter sweep showed that image size had a clearer effect than some of the other settings, while strong augmentation was not always helpful.
+
+I also learned to treat errors as useful information. Looking at confusion matrices and misclassified images helped me understand that several TrashNet mistakes were caused by visual similarity, poor image quality, and ambiguous labels rather than complete model failure.
+
+## Five Concrete Skills I Can Now Perform
+
+1. **Build a complete transfer-learning pipeline**
+
+   I can load an image dataset, create train and validation splits, apply data augmentation, build an EfficientNetB0 or DenseNet121 classifier, compile it, train it with callbacks, and save the model and weights.
+
+2. **Perform controlled fine-tuning**
+
+   I can unfreeze a chosen number of backbone layers, recompile with a smaller learning rate, keep the base model in inference mode, and compare fine-tuning fairly against the feature-extraction baseline.
+
+3. **Evaluate models beyond accuracy**
+
+   I can generate and interpret confusion matrices, classification reports, per-class precision, recall, and F1-score. I can also identify which classes are being confused most often.
+
+4. **Perform systematic error analysis**
+
+   I can collect misclassified examples, display them in readable grids, inspect prediction confidence, categorize likely causes of error, and use Grad-CAM on representative samples.
+
+5. **Design and track experiments**
+
+   I can run a fractional hyperparameter sweep, change only selected parameters, record results in `experiments.csv`, compare accuracy against training time, select a winner, and document the reasoning clearly.
+
+## Reflection on My Process
+
+During the earlier weeks, I sometimes moved too quickly and skipped checks that should have happened before training. I learned that verifying the dataset split and class labels is essential. One evaluation mistake produced results for only two classes, which showed me why checking unique labels before training and evaluation is necessary.
+
+I also learned that I must read training curves carefully instead of relying only on the final printed accuracy. Early stopping may restore a better checkpoint than the last epoch, and validation loss often gives an earlier warning about overfitting.
+
+The error-analysis work required patience. Looking at multiple misclassified images was slower than running another model, but it gave more useful understanding of the data. In future work, I should not skip this step.
+
+The iteration playbook is one of the most useful outputs from these eight weeks. It gives me a repeatable process for handling low accuracy or unstable training without making random changes.
+
+From the next week onward, I will apply this workflow to the real CESPPL operational data. My priority will be data quality, reproducibility, careful evaluation, and clear documentation rather than chasing accuracy without understanding the result.
+
 
