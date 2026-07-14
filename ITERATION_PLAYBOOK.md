@@ -603,3 +603,17 @@ When a model performs poorly:
 10. Record every experiment.
 
 Do not panic and do not change the entire pipeline at once. Diagnose the problem methodically.
+
+# Personal Lessons from the TrashNet Project
+
+Throughout the TrashNet project, I learned several practical lessons that I will apply to future datasets.
+
+- Always inspect the dataset before training.
+- Verify class labels before starting experiments.
+- Compare feature extraction and fine-tuning fairly.
+- Record every experiment in experiments.csv.
+- Analyse confusion matrices instead of relying only on accuracy.
+- Study misclassified images before changing the model.
+- Save the best model checkpoint after every successful experiment.
+- Change only one major hyperparameter at a time.
+- Document every experiment so results remain reproducible.
