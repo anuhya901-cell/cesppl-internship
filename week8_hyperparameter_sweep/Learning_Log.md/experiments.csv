@@ -1,0 +1,7 @@
+run_id,image_size,dropout,augmentation_level,train_acc,val_acc,test_acc,training_time_minutes,notes
+1,160,0.2,Low,94.16,87.13,N/A,3.51,Low augmentation
+2,160,0.5,High,84.42,84.55,N/A,3.72,High augmentation
+3,224,0.3,Medium,91.89,86.73,N/A,3.95,Medium augmentation
+4,224,0.5,Low,90.41,87.72,N/A,3.85,Low augmentation
+5,260,0.2,High,90.36,87.72,N/A,4.99,High augmentation
+6,260,0.5,Medium,83.33,89.31,N/A,4.86,Medium augmentation
