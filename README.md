@@ -581,3 +581,9 @@ Designed and executed a six-run fractional hyperparameter sweep using the TrashN
 - Data Augmentation (Low, Medium, High)
 
 A structured experimental workflow was followed while keeping the remaining training pipeline unchanged. The results of all experiments were recorded in **experiments.csv**, enabling systematic comparison of different configurations and helping identify effective parameter settings for future model development.
+
+### Iteration Playbook
+
+Created a reusable troubleshooting and model-iteration guide for future CESPPL experiments.
+
+[View the Model Iteration Playbook](./ITERATION_PLAYBOOK.md)
