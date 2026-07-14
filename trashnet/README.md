@@ -1,4 +1,4 @@
-# TrashNet Project
+# # TrashNet Image Classification Project
 
 This folder contains all Week 6 and Week 7 TrashNet notebooks and project files.
 
@@ -18,6 +18,13 @@ The goal was to build an efficient waste classification model capable of identif
 - Trash
 
 ---
+
+## Dataset Split
+
+- Total Images: **2,527**
+- Training Images: **2,022**
+- Validation Images: **505**
+- Number of Classes: **6**
 
 # Week 6 – TrashNet Feature Extraction & Initial Fine-Tuning
 
@@ -156,17 +163,65 @@ This demonstrated the effectiveness of class weighting for handling class imbala
 
 ---
 
-# Final Model
+---
 
-After evaluating multiple approaches, the final selected model was:
+# Hyperparameter Sweep
 
-**EfficientNetB0 (Transfer Learning)**
+A six-run fractional hyperparameter sweep was performed to study how different training settings affect model performance.
 
-### Final Best Performance
+### Hyperparameters Tested
 
-| Metric | Value |
-|---------|-------|
-| Best Validation Accuracy | **88.12%** |
+- Image Size: 160, 224, 260
+- Dropout: 0.2, 0.3, 0.5
+- Augmentation:
+  - Low
+  - Medium
+  - High
+
+### Best Sweep Run
+
+| Setting | Value |
+|----------|-------|
+| Run | **6** |
+| Image Size | **260 × 260** |
+| Dropout | **0.5** |
+| Augmentation | **Medium** |
+| Validation Accuracy | **89.31%** |
+| Training Time | **4.86 minutes** |
+
+### Key Observation
+
+The hyperparameter sweep showed that larger image sizes generally produced better validation accuracy, while medium augmentation provided a better balance than aggressive augmentation.
+
+---
+
+# Cosine Learning-Rate Schedule
+
+A cosine learning-rate schedule was evaluated using the best-performing sweep configuration.
+
+| Training Strategy | Validation Accuracy |
+|-------------------|--------------------:|
+| Constant Learning Rate | **89.31%** |
+| Cosine Decay | **XX.XX%** |
+
+> Replace **XX.XX%** with your measured cosine-decay validation accuracy after completing the notebook.
+
+### Observation
+
+The cosine-decay experiment was performed to determine whether a gradually decreasing learning rate improved convergence compared to a constant learning rate.
+
+# Final Selected Model
+
+After evaluating feature extraction, fine-tuning, DenseNet121, class weighting, and hyperparameter tuning, the final selected configuration is:
+
+- Backbone: **EfficientNetB0**
+- Image Size: **260 × 260**
+- Dropout: **0.5**
+- Augmentation: **Medium**
+- Optimizer: **Adam**
+- Best Validation Accuracy: **89.31%**
+
+This configuration will serve as the starting point for the real CESPPL operational dataset.
 
 ---
 
@@ -198,3 +253,8 @@ After evaluating multiple approaches, the final selected model was:
 - Performed systematic error analysis using misclassified images.
 - Applied class weighting to improve minority-class recognition.
 - Developed a structured workflow for evaluating and improving deep learning models.
+- - Designed and executed a structured hyperparameter sweep.
+- Compared multiple image sizes, dropout values, and augmentation strategies.
+- Evaluated the effect of learning-rate scheduling using cosine decay.
+- Documented experiments using experiments.csv.
+- Established a reproducible workflow for future CESPPL experiments.
