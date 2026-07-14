@@ -413,3 +413,171 @@ Per-class precision and recall provide more meaningful evaluation than overall a
 - Weak performance on: trash (minority class issue)
 
 This highlights the importance of class imbalance handling in real-world machine learning systems.
+
+# Week 6 – TrashNet Transfer Learning
+
+## Objective
+
+This week focused on building an image classification model for the TrashNet dataset using transfer learning. The primary objective was to understand feature extraction, perform an initial fine-tuning pass, and evaluate the model using standard classification metrics.
+
+### Dataset
+
+- **Dataset:** TrashNet
+- **Classes:** Cardboard, Glass, Metal, Paper, Plastic, Trash
+
+### Model
+
+- EfficientNetB0 (ImageNet Pre-trained)
+- Transfer Learning
+- Feature Extraction
+- Initial Fine-Tuning
+
+### Week 6 Results
+
+#### Feature Extraction
+
+| Metric | Result |
+|---------|--------|
+| Training Accuracy | **91.89%** |
+| Validation Accuracy | **88.12%** |
+
+#### First Fine-Tuning Pass
+
+| Metric | Result |
+|---------|--------|
+| Training Accuracy | **86.55%** |
+| Validation Accuracy | **85.94%** |
+
+### Techniques Used
+
+- TensorFlow & Keras
+- EfficientNetB0 Transfer Learning
+- Data Augmentation
+- EarlyStopping
+- ReduceLROnPlateau
+- Model Evaluation
+
+### Learning Outcomes
+
+- Learned how transfer learning works on a real-world image classification dataset.
+- Understood the effect of feature extraction and fine-tuning.
+- Improved skills in monitoring training and validation performance.
+- Saved model checkpoints for future experiments.
+
+---
+
+# Week 7 – TrashNet Model Improvement and Analysis
+
+## Objective
+
+This week focused on improving the TrashNet classifier through systematic experimentation. Multiple approaches were evaluated, including proper fine-tuning, error analysis, backbone comparison, and class weighting to improve minority-class performance.
+
+---
+
+## 1. Proper Fine-Tuning
+
+EfficientNetB0 was fine-tuned by unfreezing the upper layers and training with a smaller learning rate.
+
+### Results
+
+| Metric | Result |
+|---------|--------|
+| Training Accuracy | **86.80%** |
+| Validation Accuracy | **85.74%** |
+
+---
+
+## 2. Error Analysis
+
+Model predictions were analysed using confusion matrices, classification reports, and Grad-CAM visualizations.
+
+### Most Common Confusion Pairs
+
+- Plastic → Glass
+- Plastic → Metal
+- Plastic → Trash
+
+### Key Findings
+
+- Transparent plastic objects often resembled glass.
+- Metallic reflections caused confusion between plastic and metal.
+- Some trash images were visually ambiguous, making classification difficult.
+- Error analysis helped identify limitations in both the dataset and the model.
+
+---
+
+## 3. DenseNet121 Backbone Comparison
+
+A second transfer learning backbone was evaluated using the same training pipeline.
+
+### Results
+
+| Metric | Result |
+|---------|--------|
+| Training Accuracy | **83.53%** |
+| Validation Accuracy | **86.34%** |
+
+### Backbone Comparison
+
+| Backbone | Validation Accuracy |
+|-----------|--------------------:|
+| EfficientNetB0 | **88.12%** |
+| DenseNet121 | **86.34%** |
+
+**Selected Backbone:** EfficientNetB0
+
+---
+
+## 4. Class Weighting
+
+Class weights were applied to improve the recognition of the minority Trash class.
+
+### Results
+
+| Metric | Result |
+|---------|--------|
+| Training Accuracy | **91.20%** |
+| Restored Best Validation Accuracy | **87.72%** |
+
+### Impact
+
+| Model | Validation Accuracy |
+|--------|--------------------:|
+| Without Class Weights | **88.12%** |
+| With Class Weights | **87.72%** |
+
+The Trash class recall improved from **0.74** to **0.82**, demonstrating better minority-class detection with only a small reduction in overall validation accuracy.
+
+---
+
+## Skills Developed
+
+- Transfer Learning
+- Fine-Tuning
+- EfficientNetB0
+- DenseNet121
+- Hyperparameter Selection
+- Confusion Matrix Analysis
+- Classification Report Interpretation
+- Grad-CAM Visualization
+- Error Analysis
+- Class Weighting
+- Model Comparison
+
+---
+
+## Week 7 Summary
+
+Week 7 strengthened my understanding of model optimization and evaluation beyond overall accuracy. By comparing different backbone architectures, analysing prediction errors, and addressing class imbalance using class weights, I developed a more systematic approach to improving deep learning models. EfficientNetB0 remained the best-performing architecture with a feature extraction validation accuracy of **88.12%**, making it the final model selected for subsequent experiments.
+
+## Week 8 – Hyperparameter Sweep
+
+Designed and executed a six-run fractional hyperparameter sweep using the TrashNet dataset and the EfficientNetB0 transfer learning model.
+
+### Hyperparameters Evaluated
+
+- Image Size (160, 224, 260)
+- Dropout Rate (0.2, 0.3, 0.5)
+- Data Augmentation (Low, Medium, High)
+
+A structured experimental workflow was followed while keeping the remaining training pipeline unchanged. The results of all experiments were recorded in **experiments.csv**, enabling systematic comparison of different configurations and helping identify effective parameter settings for future model development.
