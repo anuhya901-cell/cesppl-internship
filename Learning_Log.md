@@ -70,4 +70,26 @@ After the sanity check passed, I trained the model on the full Flowers dataset a
 * Observed confusion between visually similar flower classes.
 * Learned the importance of evaluating model errors rather than relying only on accuracy.
 
+* # Week 8 – Hyperparameter Sweep Reflection
+
+This week focused on understanding how different hyperparameters influence the performance of a deep learning model rather than simply searching for the highest accuracy.
+
+During previous weeks, I changed parameters such as image size, dropout rate, learning rate, augmentation, and the number of unfrozen layers without systematically comparing their effects. This week, I followed a structured experimental approach.
+
+I selected three important hyperparameters for the sweep:
+
+- Image Size
+- Dropout Rate
+- Data Augmentation Strength
+
+Instead of testing every possible combination, I used a six-run fractional design to reduce computation while still exploring different regions of the hyperparameter space.
+
+One important lesson I learned was that changing multiple parameters simultaneously makes it difficult to understand why performance changes. Keeping the rest of the training pipeline constant allowed me to compare each experiment fairly.
+
+I also learned the importance of recording every experiment in a structured format using experiments.csv. Maintaining proper experiment records makes future comparisons much easier and improves reproducibility.
+
+Another key takeaway was that higher complexity does not always produce better performance. Larger image sizes, stronger augmentation, or higher dropout values are not guaranteed to improve accuracy. The best configuration is often a balance between accuracy, training time, and model stability.
+
+Overall, this week improved my understanding of experimental design, hyperparameter tuning, and systematic model evaluation. These are essential skills for developing reliable deep learning models.
+
 
