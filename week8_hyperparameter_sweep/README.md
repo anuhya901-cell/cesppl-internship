@@ -122,3 +122,15 @@ The file records:
 ## Conclusion
 
 This week's work demonstrated the importance of systematic experimentation instead of random parameter tuning. By changing only a few hyperparameters at a time, it became possible to understand their individual effects on model performance and establish a repeatable experimentation workflow for future deep learning projects.
+
+## Final Sweep Result
+
+Best of six sweep runs: **89.31% validation accuracy** with:
+
+- Image size: **260 × 260**
+- Dropout: **0.5**
+- Augmentation: **Medium**
+- Training time: **4.86 minutes**
+
+The sweep suggested that image size had the clearest effect on validation accuracy, while moderate augmentation provided a better balance than very strong augmentation.
+
