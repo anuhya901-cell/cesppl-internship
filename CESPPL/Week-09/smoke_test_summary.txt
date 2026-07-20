@@ -1,0 +1,22 @@
+CESPPL Week 9 Smoke Test
+
+Training images: 2530
+Validation images: 543
+Number of classes: 10
+
+Backbone: EfficientNetB0
+Backbone frozen: Yes
+Dropout: 0.3
+Optimizer: Adam
+Initial learning rate: 1e-3
+Maximum epochs: 10
+Epochs completed: 10
+
+Best validation accuracy: 95.58%
+Final restored validation accuracy: 95.21%
+Validation loss: 0.1692
+
+Purpose:
+This was a low-cost smoke test intended to verify the complete
+CESPPL image-classification pipeline. It was not intended to produce
+the final model or maximum possible accuracy.
