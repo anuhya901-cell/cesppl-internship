@@ -1,114 +1,171 @@
 import tensorflow as tf
 
+keras = tf.keras
+layers = tf.keras.layers
+
 
 SUPPORTED_BACKBONES = [
     "efficientnetb0",
     "mobilenetv2",
-    "resnet50v2"
+    "resnet50v2",
 ]
 
 
-def build_model(
-    num_classes,
-    backbone="efficientnetb0",
-    img_size=224,
-    dropout=0.3,
-    learning_rate=1e-3
-):
-    backbone = backbone.lower().strip()
+def create_augmentation():
+    """Create image augmentation layers used during normal training."""
 
-    if backbone not in SUPPORTED_BACKBONES:
-        raise ValueError(
-            f"Unsupported backbone: {backbone}"
-        )
-
-    augmentation = tf.keras.Sequential(
+    return keras.Sequential(
         [
-            tf.keras.layers.RandomFlip("horizontal"),
-            tf.keras.layers.RandomRotation(0.08),
-            tf.keras.layers.RandomZoom(0.10),
-            tf.keras.layers.RandomContrast(0.10),
+            layers.RandomFlip("horizontal"),
+            layers.RandomRotation(0.08),
+            layers.RandomZoom(0.10),
+            layers.RandomContrast(0.10),
         ],
-        name="data_augmentation"
+        name="data_augmentation",
     )
 
-    input_shape = (img_size, img_size, 3)
 
-    if backbone == "efficientnetb0":
-        base_model = tf.keras.applications.EfficientNetB0(
+def get_backbone(
+    backbone_name,
+    img_size,
+    trainable=False,
+):
+    """Create the selected ImageNet backbone."""
+
+    backbone_name = backbone_name.lower().strip()
+
+    if backbone_name == "efficientnetb0":
+        backbone = keras.applications.EfficientNetB0(
             include_top=False,
             weights="imagenet",
-            input_shape=input_shape
+            input_shape=(img_size, img_size, 3),
         )
 
-        preprocess = (
-            tf.keras.applications.efficientnet.preprocess_input
+        preprocess_function = (
+            keras.applications.efficientnet.preprocess_input
         )
 
-    elif backbone == "mobilenetv2":
-        base_model = tf.keras.applications.MobileNetV2(
+    elif backbone_name == "mobilenetv2":
+        backbone = keras.applications.MobileNetV2(
             include_top=False,
             weights="imagenet",
-            input_shape=input_shape
+            input_shape=(img_size, img_size, 3),
         )
 
-        preprocess = (
-            tf.keras.applications.mobilenet_v2.preprocess_input
+        preprocess_function = (
+            keras.applications.mobilenet_v2.preprocess_input
+        )
+
+    elif backbone_name == "resnet50v2":
+        backbone = keras.applications.ResNet50V2(
+            include_top=False,
+            weights="imagenet",
+            input_shape=(img_size, img_size, 3),
+        )
+
+        preprocess_function = (
+            keras.applications.resnet_v2.preprocess_input
         )
 
     else:
-        base_model = tf.keras.applications.ResNet50V2(
-            include_top=False,
-            weights="imagenet",
-            input_shape=input_shape
+        raise ValueError(
+            f"Unsupported backbone: {backbone_name}. "
+            f"Choose from {SUPPORTED_BACKBONES}."
         )
 
-        preprocess = (
-            tf.keras.applications.resnet_v2.preprocess_input
+    backbone.trainable = trainable
+
+    return backbone, preprocess_function
+
+
+def build_model(
+    backbone_name="efficientnetb0",
+    num_classes=10,
+    img_size=224,
+    dropout=0.3,
+    learning_rate=1e-3,
+    use_augmentation=True,
+    backbone_trainable=False,
+):
+    """
+    Build and compile the CESPPL image classifier.
+
+    Parameters
+    ----------
+    backbone_name:
+        efficientnetb0, mobilenetv2 or resnet50v2.
+
+    use_augmentation:
+        True for normal training.
+        False for sanity-overfit and evaluation.
+
+    backbone_trainable:
+        False for normal feature-extraction training.
+        True during the sanity-overfit test.
+    """
+
+    backbone_name = backbone_name.lower().strip()
+
+    if backbone_name not in SUPPORTED_BACKBONES:
+        raise ValueError(
+            f"Unsupported backbone: {backbone_name}. "
+            f"Choose from {SUPPORTED_BACKBONES}."
         )
 
-    base_model.trainable = False
-
-    inputs = tf.keras.Input(
-        shape=input_shape,
-        name="input_image"
+    backbone, preprocess_function = get_backbone(
+        backbone_name=backbone_name,
+        img_size=img_size,
+        trainable=backbone_trainable,
     )
 
-    x = augmentation(inputs)
+    inputs = keras.Input(
+        shape=(img_size, img_size, 3),
+        name="input_image",
+    )
 
-    x = tf.keras.layers.Lambda(
-        preprocess,
-        name=f"{backbone}_preprocessing"
+    x = inputs
+
+    if use_augmentation:
+        augmentation = create_augmentation()
+        x = augmentation(x)
+
+    x = layers.Lambda(
+        preprocess_function,
+        name=f"{backbone_name}_preprocessing",
     )(x)
 
-    x = base_model(
+    x = backbone(
         x,
-        training=False
+        training=backbone_trainable,
     )
 
-    x = tf.keras.layers.GlobalAveragePooling2D()(x)
-
-    x = tf.keras.layers.Dropout(
-        dropout
+    x = layers.GlobalAveragePooling2D(
+        name="global_average_pooling"
     )(x)
 
-    outputs = tf.keras.layers.Dense(
+    x = layers.Dropout(
+        dropout,
+        name="dropout",
+    )(x)
+
+    outputs = layers.Dense(
         num_classes,
-        activation="softmax"
+        activation="softmax",
+        name="classifier",
     )(x)
 
-    model = tf.keras.Model(
-        inputs,
-        outputs,
-        name=f"cesppl_{backbone}"
+    model = keras.Model(
+        inputs=inputs,
+        outputs=outputs,
+        name=f"cesppl_{backbone_name}",
     )
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(
+        optimizer=keras.optimizers.Adam(
             learning_rate=learning_rate
         ),
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"]
+        loss=keras.losses.SparseCategoricalCrossentropy(),
+        metrics=["accuracy"],
     )
 
     return model

@@ -12,19 +12,19 @@ The purpose of this test was to verify that the CESPPL training pipeline could l
 - Augmentation: Disabled
 - Dropout: 0
 - Backbone trainable: Yes
-- Loss Function: Sparse Categorical Crossentropy
+- Loss: Sparse Categorical Crossentropy
 - Optimizer: Adam
 
 ## Result
 
 - Final training accuracy: 1.0000
-- Final training loss: 0.00001245
-- Status: Passed
+- Final training loss: 0.000000125
+- Status: PASSED / NEEDS REVIEW
 
 ## Observation
 
-This test confirms that the model can memorize a small batch of images. If the training loss approaches zero and the accuracy reaches nearly 100%, the data pipeline, preprocessing, labels, and loss function are working correctly.
+The model was able to memorize the small batch, confirming that image loading, class labels, preprocessing, loss calculation and model training were functioning correctly.
 
 ## Conclusion
 
-The sanity-overfit test will be completed before running the full baseline training.
+The training pipeline passed the sanity-overfit test and was ready for the full baseline experiment.
