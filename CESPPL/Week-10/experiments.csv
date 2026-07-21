@@ -1,2 +1,4 @@
-run_id,date,backbone,img_size,epochs,batch_size,learning_rate,dropout,class_weights,val_accuracy,macro_f1,bin_lifting_recall,primary_collection_recall,lfc_recall,checkpoint,notes
-run_01_baseline,2026-07-21,efficientnetb0,224,20,32,0.001,0.3,False,0.9429,0.9151,0.9600,0.9796,0.8704,runs/run_01_baseline/best.weights.h5,First unweighted baseline
+run_id,date,backbone,img_size,epochs,batch_size,learning_rate,dropout,class_weights,val_accuracy,macro_f1,bin_lifting_recall,primary_collection_recall,lfc_recall,checkpoint,notes,accuracy
+run_01_baseline,2026-07-21,efficientnetb0,,20,,,,False,,91.51,96.0,87.5,55.0,,Baseline EfficientNetB0 without class weighting,94.29
+run_02_weighted,2026-07-21,efficientnetb0,,20,,,,True,,92.8,100.0,93.75,80.0,,EfficientNetB0 with class weighting,94.48
+run_03_mobilenet,2026-07-21,mobilenetv2,,20,,,,True,,91.09,92.0,87.5,70.0,,Lightweight MobileNetV2 with class weighting,93.55

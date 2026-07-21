@@ -1,0 +1,70 @@
+{
+    "checkpoint": "C:\\Users\\sarun\\OneDrive\\Desktop\\cesppl-internship\\runs\\run_03_mobilenet\\best.weights.h5",
+    "split": "val",
+    "backbone": "mobilenetv2",
+    "overall_accuracy": 0.9355432780847146,
+    "macro_f1": 0.9108694345703068,
+    "number_of_samples": 543,
+    "per_class_metrics": {
+        "BIN LIFTING": {
+            "precision": 0.92,
+            "recall": 0.92,
+            "f1_score": 0.92,
+            "support": 25
+        },
+        "BIN WASHING": {
+            "precision": 0.8909090909090909,
+            "recall": 1.0,
+            "f1_score": 0.9423076923076923,
+            "support": 49
+        },
+        "GATE MEETING": {
+            "precision": 0.9607843137254902,
+            "recall": 0.9074074074074074,
+            "f1_score": 0.9333333333333333,
+            "support": 54
+        },
+        "LFC": {
+            "precision": 0.7777777777777778,
+            "recall": 0.7,
+            "f1_score": 0.7368421052631579,
+            "support": 20
+        },
+        "MANUAL BEACH CLEANING": {
+            "precision": 0.9848484848484849,
+            "recall": 0.9798994974874372,
+            "f1_score": 0.982367758186398,
+            "support": 199
+        },
+        "MECHANICAL SWEEPING": {
+            "precision": 1.0,
+            "recall": 0.9629629629629629,
+            "f1_score": 0.9811320754716981,
+            "support": 27
+        },
+        "MECHANIZED BEACH CLEANING": {
+            "precision": 0.967741935483871,
+            "recall": 0.967741935483871,
+            "f1_score": 0.967741935483871,
+            "support": 31
+        },
+        "PRIMARY COLLECTION": {
+            "precision": 0.875,
+            "recall": 0.875,
+            "f1_score": 0.875,
+            "support": 16
+        },
+        "ROAD SWEEPING": {
+            "precision": 0.8625,
+            "recall": 0.8846153846153846,
+            "f1_score": 0.8734177215189873,
+            "support": 78
+        },
+        "SECONDARY VEHICLES": {
+            "precision": 0.9069767441860465,
+            "recall": 0.8863636363636364,
+            "f1_score": 0.896551724137931,
+            "support": 44
+        }
+    }
+}
