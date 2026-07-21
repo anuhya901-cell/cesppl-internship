@@ -1,0 +1,34 @@
+{
+    "random_seed": 42,
+    "backbone": "efficientnetb0",
+    "img_size": 224,
+    "dropout": 0.3,
+    "learning_rate": 0.001,
+    "epochs": 2,
+    "batch_size": 32,
+    "class_weights_enabled": true,
+    "class_names": [
+        "BIN LIFTING",
+        "BIN WASHING",
+        "GATE MEETING",
+        "LFC",
+        "MANUAL BEACH CLEANING",
+        "MECHANICAL SWEEPING",
+        "MECHANIZED BEACH CLEANING",
+        "PRIMARY COLLECTION",
+        "ROAD SWEEPING",
+        "SECONDARY VEHICLES"
+    ],
+    "class_weights": {
+        "0": 2.1810344827586206,
+        "1": 1.1145374449339207,
+        "2": 1.003968253968254,
+        "3": 2.663157894736842,
+        "4": 0.27204301075268816,
+        "5": 2.024,
+        "6": 1.7816901408450705,
+        "7": 3.2857142857142856,
+        "8": 0.6988950276243094,
+        "9": 1.2401960784313726
+    }
+}
