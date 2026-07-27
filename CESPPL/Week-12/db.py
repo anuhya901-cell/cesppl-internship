@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 import sqlite3
+import hashlib
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -207,6 +208,15 @@ def load_class_names() -> list[str]:
 
 
 # ---------------------------------------------------------
+# Duplicate upload exception
+# ---------------------------------------------------------
+class DuplicateUploadError(ValueError):
+    """
+    Raised when the same processed image is already stored.
+    """
+
+
+# ---------------------------------------------------------
 # Public database functions
 # ---------------------------------------------------------
 
@@ -214,10 +224,10 @@ def init_db(
     db_path: str | Path | None = None,
 ) -> Path:
     """
-    Create the uploads table and class-name index
-    if they do not already exist.
+    Create or safely upgrade the uploads table.
 
-    Returns the resolved database path.
+    The content_hash column prevents duplicate images from being stored.
+    Existing databases are upgraded without deleting old records.
     """
 
     resolved_path = Path(
@@ -233,10 +243,26 @@ def init_db(
                 class_name TEXT NOT NULL,
                 confidence REAL NOT NULL,
                 uploaded_at TEXT NOT NULL,
-                image BLOB NOT NULL
+                image BLOB NOT NULL,
+                content_hash TEXT
             )
             """
         )
+
+        existing_columns = {
+            row["name"]
+            for row in connection.execute(
+                "PRAGMA table_info(uploads)"
+            ).fetchall()
+        }
+
+        if "content_hash" not in existing_columns:
+            connection.execute(
+                """
+                ALTER TABLE uploads
+                ADD COLUMN content_hash TEXT
+                """
+            )
 
         connection.execute(
             """
@@ -246,10 +272,18 @@ def init_db(
             """
         )
 
+        connection.execute(
+            """
+            CREATE UNIQUE INDEX IF NOT EXISTS
+            idx_uploads_content_hash
+            ON uploads(content_hash)
+            WHERE content_hash IS NOT NULL
+            """
+        )
+
         connection.commit()
 
     return resolved_path
-
 
 def insert_upload(
     class_name: str,
@@ -260,12 +294,8 @@ def insert_upload(
     """
     Insert one uploaded image and return its generated filename.
 
-    Filename example:
-    BIN_WASHING_2026-08-05_143512.jpg
-
-    If the filename already exists, retry using:
-    BIN_WASHING_2026-08-05_143512_1.jpg
-    BIN_WASHING_2026-08-05_143512_2.jpg
+    The SHA-256 content hash prevents the same processed image
+    from being stored more than once.
     """
 
     if not isinstance(
@@ -276,7 +306,9 @@ def insert_upload(
             "image_bytes must be bytes or bytearray."
         )
 
-    if len(image_bytes) == 0:
+    immutable_image_bytes = bytes(image_bytes)
+
+    if len(immutable_image_bytes) == 0:
         raise ValueError(
             "image_bytes cannot be empty."
         )
@@ -300,6 +332,10 @@ def insert_upload(
     filename_class = _filename_class_name(
         normalised_class
     )
+
+    content_hash = hashlib.sha256(
+        immutable_image_bytes
+    ).hexdigest()
 
     timestamp = _current_timestamp()
 
@@ -330,22 +366,46 @@ def insert_upload(
         try:
             with _get_connection(db_path) as connection:
                 connection.execute(
+                    "BEGIN IMMEDIATE"
+                )
+
+                existing_upload = connection.execute(
+                    """
+                    SELECT filename
+                    FROM uploads
+                    WHERE content_hash = ?
+                    LIMIT 1
+                    """,
+                    (content_hash,),
+                ).fetchone()
+
+                if existing_upload is not None:
+                    raise DuplicateUploadError(
+                        "This image is already stored as "
+                        f"{existing_upload['filename']}."
+                    )
+
+                connection.execute(
                     """
                     INSERT INTO uploads (
                         filename,
                         class_name,
                         confidence,
                         uploaded_at,
-                        image
+                        image,
+                        content_hash
                     )
-                    VALUES (?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?)
                     """,
                     (
                         filename,
                         normalised_class,
                         confidence_value,
                         uploaded_at,
-                        sqlite3.Binary(image_bytes),
+                        sqlite3.Binary(
+                            immutable_image_bytes
+                        ),
+                        content_hash,
                     ),
                 )
 
@@ -353,13 +413,22 @@ def insert_upload(
 
             return filename
 
+        except DuplicateUploadError:
+            raise
+
         except sqlite3.IntegrityError as error:
-            # Only retry filename UNIQUE collisions.
-            if "UNIQUE constraint failed" not in str(error):
-                raise
+            error_message = str(error)
 
-            suffix_number += 1
+            if "content_hash" in error_message:
+                raise DuplicateUploadError(
+                    "This image has already been stored."
+                ) from error
 
+            if "filename" in error_message:
+                suffix_number += 1
+                continue
+
+            raise
 
 def class_counts(
     db_path: str | Path | None = None,
@@ -471,6 +540,55 @@ def get_image(
         return None
 
     return bytes(row["image"])
+
+def reassign_upload(
+    upload_id: int,
+    new_class_name: str,
+    db_path: str | Path | None = None,
+) -> bool:
+    """
+    Move one stored image to a different activity class.
+
+    Returns True when the record was updated.
+    Returns False when the upload ID does not exist.
+    """
+
+    init_db(db_path)
+
+    try:
+        upload_id_value = int(upload_id)
+    except (TypeError, ValueError) as error:
+        raise ValueError(
+            "upload_id must be a valid integer."
+        ) from error
+
+    normalised_class = _normalise_class_name(
+        new_class_name
+    )
+
+    valid_classes = load_class_names()
+
+    if normalised_class not in valid_classes:
+        raise ValueError(
+            f"Invalid activity class: {normalised_class}"
+        )
+
+    with _get_connection(db_path) as connection:
+        cursor = connection.execute(
+            """
+            UPDATE uploads
+            SET class_name = ?
+            WHERE id = ?
+            """,
+            (
+                normalised_class,
+                upload_id_value,
+            ),
+        )
+
+        connection.commit()
+
+    return cursor.rowcount > 0
 
 
 def recent_uploads(
